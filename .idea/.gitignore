@@ -1,0 +1,22 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Java
+out/
+build/
+target/
+*.class
+
+# Gradle
+.gradle/
+
+# macOS
+.DS_Store
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key

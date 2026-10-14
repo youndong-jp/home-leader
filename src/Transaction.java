@@ -1,4 +1,10 @@
-public class Transaction{
+public class Transaction {
+
     String category;
     int cost;
+
+    Transaction(String category, int cost) {
+        this.category = category;
+        this.cost = cost;
+    }
 }
