@@ -11,42 +11,42 @@ public class Main {
             printMenu();
             menu = sc.nextInt();
             sc.nextLine();
-        }
-        switch (menu) {
-            case 1:
-                System.out.println("지출 등록 선택");
-                System.out.println("카테고리를 입력하세요:");
-                String category = sc.nextLine();
-                System.out.println("금액을 입력하세요:");
-                int cost  = sc.nextInt();
-                Transaction transaction = new Transaction(category,cost);
-                transactions.add(transaction);
-                break;
 
-            case 2:
-                System.out.println("지출 목록 ");
-                for (int i = 0; i < transactions.size(); i++) {
-                    System.out.println("번호:" + (i + 1)
-                            + "지출 카테고리: " + transactions.get(i).category
-                            + "지출비용: " + transactions.get(i).cost + "원");
+            switch (menu) {
+                case 1:
+                    System.out.println("지출 등록 선택");
+                    System.out.println("카테고리를 입력하세요:");
+                    String category = sc.nextLine();
+                    System.out.println("금액을 입력하세요:");
+                    int cost = sc.nextInt();
+                    Transaction transaction = new Transaction(category, cost);
+                    transactions.add(transaction);
+                    break;
+
+                case 2:
+                    System.out.println("지출 목록 ");
+                    for (int i = 0; i < transactions.size(); i++) {
+                        System.out.println("번호:" + (i + 1)
+                                + "지출 카테고리: " + transactions.get(i).getCategory()
+                                + "지출비용: " + transactions.get(i).getCost() + "원");
+                    }
+                    break;
+
+                case 3: {
+                    System.out.println("총 지출 확인 선택");
+                    int totalCost = calculateTotal(transactions);
+                    System.out.println("총 지출: " + totalCost + "원");
+                    break;
                 }
-                break;
+                case 0:
+                    System.out.println("종료합니다.");
+                    break;
 
-            case 3: {
-                System.out.println("총 지출 확인 선택");
-                int totalCost = calculateTotal(transactions);
-                System.out.println("총 지출: " + totalCost + "원");
-                break;
+                default:
+                    System.out.println("잘못된 메뉴입니다.");
             }
-            case 0:
-                System.out.println("종료합니다.");
-                break;
-
-            default:
-                System.out.println("잘못된 메뉴입니다.");
         }
     }
-
     static void printMenu() {
 
             System.out.println("===== Home Ledger =====");
@@ -58,7 +58,7 @@ public class Main {
     static int calculateTotal(ArrayList<Transaction> transactions){
         int totalCost = 0;
         for (int i = 0; i < transactions.size(); i++) {
-            totalCost += transactions.get(i).cost;
+            totalCost += transactions.get(i).getCost();
         }
         return totalCost;
     }
