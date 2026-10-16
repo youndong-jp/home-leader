@@ -38,6 +38,9 @@ public class Main {
                     System.out.println("총 지출: " + totalCost + "원");
                     break;
                 }
+                case 4: {
+                    System.out.println("검색할 카테고리를 입력하세요:");
+                }
                 case 0:
                     System.out.println("종료합니다.");
                     break;
@@ -47,19 +50,37 @@ public class Main {
             }
         }
     }
+
     static void printMenu() {
 
-            System.out.println("===== Home Ledger =====");
-            System.out.println("1. 지출 등록");
-            System.out.println("2. 지출 목록");
-            System.out.println("3. 총 지출 확인");
-            System.out.println("0. 종료");
+        System.out.println("===== Home Ledger =====");
+        System.out.println("1. 지출 등록");
+        System.out.println("2. 지출 목록");
+        System.out.println("3. 총 지출 확인");
+        System.out.println("4. 카테고리 검색");
+        System.out.println("0. 종료");
     }
-    static int calculateTotal(ArrayList<Transaction> transactions){
+
+    static int calculateTotal(ArrayList<Transaction> transactions) {
         int totalCost = 0;
         for (int i = 0; i < transactions.size(); i++) {
             totalCost += transactions.get(i).getCost();
         }
         return totalCost;
+    }
+
+    static void searchCategory(ArrayList<Transaction> transactions, String searchName) {
+        boolean found = false;
+        for (Transaction transaction : transactions) {
+            String name = transaction.getCategory();
+            if (searchName.equals(name)) {
+                found = true;
+                System.out.println("지출 카테고리: " + transaction.getCategory()
+                        + "지출비용: " + transaction.getCost() + "원");
+            }
+        }
+        if (! found) {
+            System.out.println("검색 결과가 없습니다");
+        }
     }
 }
