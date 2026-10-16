@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,10 +18,25 @@ public class Main {
                     System.out.println("지출 등록 선택");
                     System.out.println("카테고리를 입력하세요:");
                     String category = sc.nextLine();
-                    System.out.println("금액을 입력하세요:");
-                    int cost = sc.nextInt();
-                    Transaction transaction = new Transaction(category, cost);
+                    int cost = 0;
+                    while(true){
+                        try{System.out.println("금액을 입력하세요:");
+                            cost = sc.nextInt();
+                           if(cost<=0){
+                               System.out.println("잘못된 금액입니다.");
+                               continue;
+                           }else{
+                               break;
+                           }
+                    }catch (InputMismatchException e) {
+                        System.out.println("숫자만 입력해주세요");
+                        sc.nextLine();
+                        }
+                        }
+                    Transaction transaction = new Transaction(category,cost);
                     transactions.add(transaction);
+                    System.out.println("지출이 등록되었습니다");
+                    sc.nextLine();
                     break;
 
                 case 2:
@@ -40,6 +56,8 @@ public class Main {
                 }
                 case 4: {
                     System.out.println("검색할 카테고리를 입력하세요:");
+                    String foundCategory = sc.nextLine();
+                    foundCategory(transactions,foundCategory);
                 }
                 case 0:
                     System.out.println("종료합니다.");
@@ -69,18 +87,20 @@ public class Main {
         return totalCost;
     }
 
-    static void searchCategory(ArrayList<Transaction> transactions, String searchName) {
+    static void foundCategory(ArrayList<Transaction> transactions, String foundName) {
         boolean found = false;
         for (Transaction transaction : transactions) {
             String name = transaction.getCategory();
-            if (searchName.equals(name)) {
+            if (foundName.equals(name)) {
                 found = true;
-                System.out.println("지출 카테고리: " + transaction.getCategory()
-                        + "지출비용: " + transaction.getCost() + "원");
+                System.out.println("카테고리: " + transaction.getCategory()
+                        +
+                        "\n 지출비용: " + transaction.getCost() + "원");
             }
         }
         if (! found) {
             System.out.println("검색 결과가 없습니다");
         }
     }
+
 }
