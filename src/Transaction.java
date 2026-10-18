@@ -5,6 +5,10 @@ public class Transaction {
     private String category;
     private int cost;
 
+    Transaction(String category, int cost) {
+        this.category = category;
+        setCost(cost);
+    }
     public void setCost(int cost){
             if(cost<=0){
                 throw new IllegalArgumentException("금액은 0 보다 커야합니다 ");

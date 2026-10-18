@@ -65,6 +65,27 @@ public class Main {
                     foundCategory(transactions,foundCategory);
                 }
                 break;
+                case 5: {
+
+                    try{
+                        System.out.println("삭제할 지출 번호를 입력하세요:");
+                        int number = sc.nextInt();
+                        if(number<1 || number>transactions.size()){
+                            System.out.println("잘못된 번호입니다.");
+                        }else{
+                            Transaction deleted = transactions.remove(number - 1);
+                            System.out.println(
+                                    deleted.getCategory() + " "
+                                            + deleted.getCost() + "원이 삭제되었습니다.");
+                        }
+                        sc.nextLine();
+                    }catch (InputMismatchException e) {
+                        System.out.println("숫자만 입력해주세요");
+                        sc.nextLine();
+                    }
+                    break;
+                }
+
                 case 0:
                     System.out.println("종료합니다.");
                     break;
@@ -82,6 +103,7 @@ public class Main {
         System.out.println("2. 지출 목록");
         System.out.println("3. 총 지출 확인");
         System.out.println("4. 카테고리 검색");
+        System.out.println("5. 지출 삭제");
         System.out.println("0. 종료");
     }
 
