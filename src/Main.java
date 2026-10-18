@@ -10,9 +10,14 @@ public class Main {
         int menu = -1;
         while (menu != 0) {
             printMenu();
-            menu = sc.nextInt();
-            sc.nextLine();
-
+            try {
+                menu = sc.nextInt();
+                sc.nextLine();
+            }catch (InputMismatchException e){
+                System.out.println("메뉴는 숫자로 입력해주세요");
+                sc.nextLine();
+                continue;
+            }
             switch (menu) {
                 case 1:
                     System.out.println("지출 등록 선택");
@@ -59,6 +64,7 @@ public class Main {
                     String foundCategory = sc.nextLine();
                     foundCategory(transactions,foundCategory);
                 }
+                break;
                 case 0:
                     System.out.println("종료합니다.");
                     break;
