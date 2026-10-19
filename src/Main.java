@@ -86,6 +86,64 @@ public class Main {
                     break;
                 }
 
+                case 6 : {
+                    if (transactions.isEmpty()) {
+                        System.out.println("수정할 지출이 없습니다.");
+                        break;
+                    }
+                    try{
+                        System.out.println("지출 목록 ");
+                        for (int i = 0; i < transactions.size(); i++) {
+                            System.out.println("번호:" + (i + 1)
+                                    + "지출 카테고리: " + transactions.get(i).getCategory()
+                                    + "지출비용: " + transactions.get(i).getCost() + "원");
+                        }
+                        System.out.println("수정 지출 번호를 입력하세요:");
+                        int number = sc.nextInt();
+                        sc.nextLine();
+                        if(number<1 || number>transactions.size()){
+                            System.out.println("잘못된 번호입니다.");
+                        }else{
+                            Transaction newTransactions = transactions.get(number - 1);
+                            while(true){
+                            try{
+                                System.out.println("수정할 카테고리를 입력하세요");
+                                String newCategory = sc.nextLine();
+                                if(newCategory.isBlank()){
+                                    System.out.println("카테고리만 입력해주세요");
+                                    continue;
+                                }
+                                System.out.println("수정할 금액을 입력하세요");
+                                int newCost = sc.nextInt();
+                                if(newCost<=0){
+                                    System.out.println("잘못된 금액입니다.");
+                                    sc.nextLine();
+                                    continue;
+                                }else{
+                                    newTransactions.setCategory(newCategory);
+                                    newTransactions.setCost(newCost);
+                                    System.out.println("변경되었습니다."
+                                            + "지출카테고리 : "
+                                            + newTransactions.getCategory()
+                                            + "금액 : "
+                                            + newTransactions.getCost());
+                                    break;
+                                }
+                            }catch (InputMismatchException e) {
+                                System.out.println("숫자만 입력해주세요");
+                                sc.nextLine();
+                            }
+                        }
+                        }
+                        sc.nextLine();
+                    }catch (InputMismatchException e) {
+                        System.out.println("숫자만 입력해주세요");
+                        sc.nextLine();
+                    }
+                    break;
+                }
+
+
                 case 0:
                     System.out.println("종료합니다.");
                     break;
@@ -104,6 +162,7 @@ public class Main {
         System.out.println("3. 총 지출 확인");
         System.out.println("4. 카테고리 검색");
         System.out.println("5. 지출 삭제");
+        System.out.println("6. 지출 수정");
         System.out.println("0. 종료");
     }
 
