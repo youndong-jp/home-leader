@@ -19,7 +19,7 @@ public class Main {
                 continue;
             }
             switch (menu) {
-                case 1:
+                case 1:{
                     System.out.println("지출 등록 선택");
                     System.out.println("카테고리를 입력하세요:");
                     String category = sc.nextLine();
@@ -29,6 +29,7 @@ public class Main {
                             cost = sc.nextInt();
                            if(cost<=0){
                                System.out.println("잘못된 금액입니다.");
+                               sc.nextLine();
                                continue;
                            }else{
                                break;
@@ -43,6 +44,7 @@ public class Main {
                     System.out.println("지출이 등록되었습니다");
                     sc.nextLine();
                     break;
+                }
 
                 case 2:
                     System.out.println("지출 목록 ");
@@ -142,6 +144,23 @@ public class Main {
                     }
                     break;
                 }
+                case 7:{
+                    int sumCategory=0;
+                    int sumCost=0;
+                    System.out.println("카테고리를 입력하세요");
+                    String searchCategory = sc.nextLine();
+                    for(Transaction transaction : transactions){
+                    if(transaction.getCategory().equals(searchCategory)) {
+                        sumCategory++;
+                        sumCost += transaction.getCost();
+                    }
+                    }if (sumCategory == 0) {
+                            System.out.println("해당 카테고리의 지출이 없습니다.");
+                        } else {
+                            System.out.println(searchCategory + " 지출 건수: " + sumCategory + "건");
+                            System.out.println(searchCategory + " 총 지출: " + sumCost + "원");
+                        }break;
+                }
 
 
                 case 0:
@@ -163,6 +182,7 @@ public class Main {
         System.out.println("4. 카테고리 검색");
         System.out.println("5. 지출 삭제");
         System.out.println("6. 지출 수정");
+        System.out.println("7. 카테고리별 지출 합계");
         System.out.println("0. 종료");
     }
 
