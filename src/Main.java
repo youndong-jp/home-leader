@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Transaction> transactions = new ArrayList<>();
+        TransactionService service = new TransactionService();
 
         int menu = -1;
         while (menu != 0) {
@@ -57,14 +58,24 @@ public class Main {
 
                 case 3: {
                     System.out.println("총 지출 확인 선택");
-                    int totalCost = calculateTotal(transactions);
+                    int totalCost = service.calculateTotal(transactions);
                     System.out.println("총 지출: " + totalCost + "원");
                     break;
                 }
                 case 4: {
                     System.out.println("검색할 카테고리를 입력하세요:");
                     String foundCategory = sc.nextLine();
-                    foundCategory(transactions,foundCategory);
+                    service.foundCategory(transactions,foundCategory);
+                    ArrayList<Transaction> result =
+                            service.foundCategory(transactions, foundCategory);
+                    if (result.isEmpty()) {
+                        System.out.println("검색 결과가 없습니다.");
+                    } else {
+                        for(Transaction transaction : result ){
+                            System.out.println("검색결과 : "+ transaction.getCategory()+
+                                    "금액 : "+ transaction.getCost());
+                        }
+                    }
                 }
                 break;
                 case 5: {
@@ -186,28 +197,5 @@ public class Main {
         System.out.println("0. 종료");
     }
 
-    static int calculateTotal(ArrayList<Transaction> transactions) {
-        int totalCost = 0;
-        for (int i = 0; i < transactions.size(); i++) {
-            totalCost += transactions.get(i).getCost();
-        }
-        return totalCost;
-    }
-
-    static void foundCategory(ArrayList<Transaction> transactions, String foundName) {
-        boolean found = false;
-        for (Transaction transaction : transactions) {
-            String name = transaction.getCategory();
-            if (foundName.equals(name)) {
-                found = true;
-                System.out.println("카테고리: " + transaction.getCategory()
-                        +
-                        "\n 지출비용: " + transaction.getCost() + "원");
-            }
-        }
-        if (! found) {
-            System.out.println("검색 결과가 없습니다");
-        }
-    }
 
 }
